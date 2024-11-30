@@ -58,6 +58,7 @@
                                 result.innerHTML = `File uploaded and processed successfully! <a href="${data.report_url}" target="_[profile]]>View Report</a>`;
                             }
                             result.classList.add('animate__animated', 'animate__bounceInUp');
+                            document.getElementById('file-upload').addEventListener('change', (event) => { const { files } = event.target; console.log('Selected files:', files); // You can now process the files array as needed
                         }
                     },
                 },
