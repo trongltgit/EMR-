@@ -104,7 +104,7 @@
                                 result.textContent = data.error;
                             } else {
                                 result.classList.add('text-success');
-                                result.innerHTML = `File uploaded and processed successfully! <a href="${data.report_url}" target="_blank">View Report</a>`;
+                                result.innerHTML = `File uploaded and processed successfully! <a href="${data.prediction_url}" target=response.getWriter().println("<h1>Prediction Result</h1>"); response.getWriter().println("<p>Predicted Diseases: " + prediction + "</p>")</a>`;
                             }
                             result.classList.add('animate__animated', 'animate__bounceInUp');
                         }
@@ -125,30 +125,8 @@
             });
         });
         
+            
         
-        
-        
-        }  
-            File file = new File(uploads, fileName); 
-            filePart.write(file.getAbsolutePath()); 
-            // Send the file to the Python server for prediction
-             String prediction = sendFileToPythonServer(file);
-             // Print the predicted diseases in HTML 
-            response.setContentType("text/html"); 
-            response.getWriter().println("<h1>Prediction Result</h1>"); response.getWriter().println("<p>Predicted Diseases: " + prediction + "</p>"); } 
-            private String sendFileToPythonServer(File file) throws IOException { 
-            String prediction = "";
-             try (CloseableHttpClient httpClient = HttpClients.createDefault()) 
-            { HttpPost uploadFile = new HttpPost("http://localhost:5000/predict"); 
-            MultipartEntityBuilder builder = MultipartEntityBuilder.create(); 
-            builder.addBinaryBody("file", file, ContentType.APPLICATION_OCTET_STREAM, file.getName()); uploadFile.setEntity(builder.build()); 
-            try (CloseableHttpResponse response = httpClient.execute(uploadFile)) { 
-            prediction = EntityUtils.toString(response.getEntity()); 
-            } 
-        } 
-        return prediction;
-    }
-
 
         
     
