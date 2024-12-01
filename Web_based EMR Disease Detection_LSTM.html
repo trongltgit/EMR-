@@ -11,7 +11,7 @@
 </head>
 <body>
 
-            <style>
+          <style>
             body {
                 height: 100vh;
                 position: relative;
@@ -84,12 +84,14 @@
     <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     <script>
-
-     $(function () {
+        $(function () {
             $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
 
             $('.uploader').filepond({
-                maxFileSize: '50MB',
+                maxFileSize: '5MB',
+                imageCropAspectRatio: '1:1',
+                imageResizeTargetWidth: 500,
+                imagePreviewMaxHeight: window.innerHeight * 3 / 5,
                 server: {
                     url: '/upload_file',
                     timeout: 60000,
@@ -104,7 +106,18 @@
                                 result.textContent = data.error;
                             } else {
                                 result.classList.add('text-success');
-                                result.innerHTML = `File uploaded and processed successfully! <a href="${data.prediction_url}" target=response.getWriter().println("<h1>Prediction Result</h1>"); response.getWriter().println("<p>Predicted Diseases: " + prediction + "</p>")</a>`;
+                                } 
+                                File file = new File(uploads, fileName); 
+                                filePart.write(file.getAbsolutePath()); 
+                                // Send the file to the Python server for prediction
+                                 String prediction = sendFileToPythonServer(file);
+                                 // Print the predicted diseases in HTML 
+                                response.setContentType("text/html"); 
+                                response.getWriter().println("<h1>Prediction Result</h1>"); response.getWriter().println("<p>Predicted Diseases: " + prediction + "</p>"); } 
+                                private String sendFileToPythonServer(File file) throws IOException { 
+                                String prediction = "";
+                                }        
+
                             }
                             result.classList.add('animate__animated', 'animate__bounceInUp');
                         }
@@ -124,13 +137,6 @@
                 console.log('file added event', e);
             });
         });
-        
-            
-        
-
-        
-    
-    
     </script>
 </body>
 </html>
