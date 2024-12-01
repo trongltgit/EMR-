@@ -33,6 +33,19 @@
     <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
    
+    $('.uploader').filepond({
+                maxFileSize: '5MB',
+                imageCropAspectRatio: '1:1',
+                imageResizeTargetWidth: 500,
+                imagePreviewMaxHeight: window.innerHeight * 3 / 5,
+                server: {
+                    url: '/upload_file',
+                    timeout: 60000,
+                    process: {
+                        method: 'POST',
+                        withCredentials: false,
+                        onload: (response) => {
+    
     <form action="upload" method="post" enctype="multipart/form-data">
         <label for="file">Upload File:</label> 
         <input type="file" id="file" name="file" accept=".csv"> 
