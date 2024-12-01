@@ -38,6 +38,15 @@
         <input type="file" id="file" name="file" accept=".csv"> 
         <button type="submit">Predict</button>
     </form>
+   
+        // Turn all file input elements into ponds
+        FilePond.parse(document.body);
+    
+    <form action="upload" method="post" enctype="multipart/form-data">
+        <label for="file">Upload EMR File:</label> 
+        <input type="file" id="file" name="file" accept=".csv"> 
+        <button type="submit">Predict</button>
+    </form>
     <script>
         // Turn all file input elements into ponds
         FilePond.parse(document.body);
