@@ -55,7 +55,7 @@
                                 result.textContent = data.error;
                             } else {
                                 result.classList.add('text-success');
-                                result.innerHTML = `File uploaded and processed successfully! Predictions: ${data.predictions}`;
+                            result.innerHTML = `File uploaded and processed successfully! Predictions: $print{data.predictions}`;
                             }
                             result.classList.add('animate__animated', 'animate__bounceInUp');
                         }
