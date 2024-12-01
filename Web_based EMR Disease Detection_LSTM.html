@@ -89,10 +89,7 @@
             $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
 
             $('.uploader').filepond({
-                maxFileSize: '5MB',
-                imageCropAspectRatio: '1:1',
-                imageResizeTargetWidth: 500,
-                imagePreviewMaxHeight: window.innerHeight * 3 / 5,
+                maxFileSize: '50MB',
                 server: {
                     url: '/upload_file',
                     timeout: 60000,
