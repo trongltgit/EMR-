@@ -33,48 +33,60 @@
     <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     <script>
-        $(function () {
-            $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
+        import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 
-            $('.uploader').filepond({
-                maxFileSize: '5MB',
-                imageCropAspectRatio: '1:1',
-                imageResizeTargetWidth: 500,
-                imagePreviewMaxHeight: window.innerHeight * 3 / 5,
-                server: {
-                    url: '/upload_file',
-                    timeout: 60000,
-                    process: {
-                        method: 'POST',
-                        withCredentials: false,
-                        onload: (response) => {
-                            var result = window.document.querySelector("#result-message");
-                            var data = JSON.parse(response);
-                            if (data.error) {
-                                result.classList.add('text-danger');
-                                result.textContent = data.error;
-                            } else {
-                                result.classList.add('text-success');
-                                result.innerHTML = `File uploaded and processed successfully! Predictions: ${data.predictions}`;
-                            }
-                            result.classList.add('animate__animated', 'animate__bounceInUp');
-                        }
-                    },
-                },
-            });
+@MultipartConfig
+public class UploadServlet extends HttpServlet {
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Part filePart = request.getPart("file");
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        File uploads = new File("uploads");
+        if (!uploads.exists()) {
+            uploads.mkdir();
+        }
+        File file = new File(uploads, fileName);
+        filePart.write(file.getAbsolutePath());
 
-            $('.uploader').filepond('allowMultiple', true);
+        // Send the file to the Python server for prediction
+        String prediction = sendFileToPythonServer(file);
 
-            $('.uploader').on('FilePond:addfile', function (e) {
-                var result = window.document.querySelector("#result-message");
-                result.classList.remove('animate__animated', 'animate__bounceInUp', 'text-danger', 'text-success');
-                result.textContent = "";
-            });
+        // Print the predicted diseases in HTML
+        response.setContentType("text/html");
+        response.getWriter().println("<h1>Prediction Result</h1>");
+        response.getWriter().println("<p>Predicted Diseases: " + prediction + "</p>");
+    }
 
-            $('.uploader').on('FilePond:addfile', function (e) {
-                console.log('file added event', e);
-            });
-        });
+    private String sendFileToPythonServer(File file) throws IOException {
+        String prediction = "";
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            HttpPost uploadFile = new HttpPost("http://localhost:5000/predict");
+            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+            builder.addBinaryBody("file", file, ContentType.APPLICATION_OCTET_STREAM, file.getName());
+            uploadFile.setEntity(builder.build());
+            try (CloseableHttpResponse response = httpClient.execute(uploadFile)) {
+                prediction = EntityUtils.toString(response.getEntity());
+            }
+        }
+        return prediction;
+    }
+}
+
     </script>
 </body>
 </html>
