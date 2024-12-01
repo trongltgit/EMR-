@@ -85,7 +85,53 @@
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     <script>
 
-     }  
+     $(function () {
+            $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
+
+            $('.uploader').filepond({
+                maxFileSize: '5MB',
+                imageCropAspectRatio: '1:1',
+                imageResizeTargetWidth: 500,
+                imagePreviewMaxHeight: window.innerHeight * 3 / 5,
+                server: {
+                    url: '/upload_file',
+                    timeout: 60000,
+                    process: {
+                        method: 'POST',
+                        withCredentials: false,
+                        onload: (response) => {
+                            var result = window.document.querySelector("#result-message");
+                            var data = JSON.parse(response);
+                            if (data.error) {
+                                result.classList.add('text-danger');
+                                result.textContent = data.error;
+                            } else {
+                                result.classList.add('text-success');
+                                result.innerHTML = `File uploaded and processed successfully! <a href="${data.report_url}" target="_blank">View Report</a>`;
+                            }
+                            result.classList.add('animate__animated', 'animate__bounceInUp');
+                        }
+                    },
+                },
+            });
+
+            $('.uploader').filepond('allowMultiple', true);
+
+            $('.uploader').on('FilePond:addfile', function (e) {
+                var result = window.document.querySelector("#result-message");
+                result.classList.remove('animate__animated', 'animate__bounceInUp', 'text-danger', 'text-success');
+                result.textContent = "";
+            });
+
+            $('.uploader').on('FilePond:addfile', function (e) {
+                console.log('file added event', e);
+            });
+        });
+        
+        
+        
+        
+        }  
             File file = new File(uploads, fileName); 
             filePart.write(file.getAbsolutePath()); 
             // Send the file to the Python server for prediction
