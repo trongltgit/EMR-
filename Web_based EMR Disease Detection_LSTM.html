@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EMR-ELECTRONIC MEDICAL RECORD DETECTION PROJECT</title>
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 </head>
 <body>
     <div class="container" id="main-container">
@@ -20,7 +22,7 @@
                 <p>Đề tài này xây dựng mô hình Mạng nơ-ron LSTM, một trong những phát triển quan trọng nhất trong lĩnh vực trí tuệ nhân tạo AI, để tự động phân loại chuỗi dữ liệu bệnh án của bệnh nhân để hỗ trợ các y, bác sỹ trong chẩn đoán bệnh tiềm ẩn của bệnh nhân trong quá trình điều trị.</p>
             </div>
             <div class="col-8">
-                <input type="file" class="filepond uploader" name="file" multiple data-allow-reorder="true" data-max-file-size="3MB" data-max-files="1">
+                <input type="file" class="filepond uploader" name="file" multiple data-allow-reorder="true" data-max-file-size="50MB" data-max-files="1">
                 <div class="result text-center">
                     <div class="" id="result-message"></div>
                 </div>
@@ -32,49 +34,78 @@
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
     <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+   
+    <!-- include jQuery library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+
+    <!-- include FilePond library -->
+    <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
+
+    <!-- include FilePond plugins -->
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
+
+    <!-- include FilePond jQuery adapter -->
+    <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
+
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    
+    $(function () {            
+        // First register any plugins
+        $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
+
+        // Turn input element into a pond
+        $('.uploader').filepond({
+
+            // maximum allowed file size
+            maxFileSize: '50MB',
+
+            // crop the image to a 1:1 ratio
+            imageCropAspectRatio: '1:1',
+
+            // upload to this server end point
+            server: {
+                url: '/upload_file',
+                timeout: 60000,
+                process: {
+                    method: 'POST',
+                    withCredentials: false,
+                    onload: (response) => {
+                        var result = window.document.querySelector("#result-message");$Prediction(Data.Prediction)
+                    }
+                    result.classList.add("animate__animated", "animate__bounceInUp");
+                }
+            },
+        },
+    });
+
+    
     <script>
-        $(function () {
-            $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
+    // Turn all file input elements into ponds
+    FilePond.parse(document.body);
 
-            $('.uploader').filepond({
-                maxFileSize: '5MB',
-                imageCropAspectRatio: '1:1',
-                imageResizeTargetWidth: 500,
-                imagePreviewMaxHeight: window.innerHeight * 3 / 5,
-                server: {
-                    url: '/upload_file',
-                    timeout: 60000,
-                    process: {
-                        method: 'POST',
-                        withCredentials: false,
-                        onload: (response) => {
-                            var result = window.document.querySelector("#result-message");
-                            var data = JSON.parse(response);
-                            if (data.error) {
-                                result.classList.add('text-danger');
-                                result.textContent = data.error;
-                            } else {
-                                result.classList.add('text-success');
-                                result.innerHTML = `File uploaded and processed successfully! <a href="${data.report_url}" target="_blank">$Predictions:(data.prediction)</a>`;
-                            }
-                            result.classList.add('animate__animated', 'animate__bounceInUp');
-                        }
-                    },
-                },
-            });
-
-            $('.uploader').filepond('allowMultiple', true);
-
-            $('.uploader').on('FilePond:addfile', function (e) {
-                var result = window.document.querySelector("#result-message");
-                result.classList.remove('animate__animated', 'animate__bounceInUp', 'text-danger', 'text-success');
-                result.textContent = "";
-            });
-
-            $('.uploader').on('FilePond:addfile', function (e) {
-                console.log('file added event', e);
-            });
-        });
     </script>
+    // Set allowMultiple property to true
+    $('.uploader').filepond('allowMultiple', true);
+
+    // Listen for addfile event
+    $('.uploader').on('FilePond:addfile', function (e) {
+        var result = window.document.querySelector("#result-message");
+        result.classList.remove("animate__animated", "animate__bounceInUp", "text-danger", "text-success");
+        result.textContent = ""
+    });
+
+    // Listen for addfile event
+    $('.uploader').on('FilePond:addfile', function (e) {
+        console.log('file added event', e);
+    });
+});
+    
+    <script>
+        // Turn all file input elements into ponds
+        FilePond.parse(document.body);
+
+
+    </script>
+
 </body>
 </html>
