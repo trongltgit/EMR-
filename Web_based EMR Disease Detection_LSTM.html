@@ -33,6 +33,16 @@
     <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     <script>
+        $('.uploader').filepond({
+                maxFileSize: '5MB',
+                imageCropAspectRatio: '1:1',
+                imageResizeTargetWidth: 500,
+                imagePreviewMaxHeight: window.innerHeight * 3 / 5,
+                server: {
+                    url: '/upload_file',
+                    timeout: 60000,
+                    process: {
+        
         @MultipartConfig
 public class UploadServlet extends HttpServlet {
     @Override
