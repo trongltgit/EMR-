@@ -11,7 +11,7 @@
 </head>
 <body>
 
-          <style>
+            <style>
             body {
                 height: 100vh;
                 position: relative;
@@ -84,11 +84,11 @@
     <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     <script>
-        $(function () {
+     $(function () {
             $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
 
             $('.uploader').filepond({
-                maxFileSize: '100MB',
+                maxFileSize: '5MB',
                 imageCropAspectRatio: '1:1',
                 imageResizeTargetWidth: 500,
                 imagePreviewMaxHeight: window.innerHeight * 3 / 5,
@@ -97,9 +97,6 @@
                     timeout: 60000,
                     process: {
                         method: 'POST',
-                        
-                                     
-                        
                         withCredentials: false,
                         onload: (response) => {
                             var result = window.document.querySelector("#result-message");
@@ -109,7 +106,7 @@
                                 result.textContent = data.error;
                             } else {
                                 result.classList.add('text-success');
-                                result.innerHTML = `File uploaded and processed successfully! <a href="${data.report_url}" target="_blank">,response.getWriter().println("<p>Predicted Diseases: " + prediction + "</p>"</a>`;
+                                  result.innerHTML = `File uploaded and processed successfully! <a href="${data.report_url}" target="_blank">,response.getWriter().println("<p>Predicted Diseases: " + prediction + "</p>"</a>`;
                             }
                             result.classList.add('animate__animated', 'animate__bounceInUp');
                         }
@@ -128,7 +125,8 @@
             $('.uploader').on('FilePond:addfile', function (e) {
                 console.log('file added event', e);
             });
-        });
+        });    
+    
     </script>
 </body>
 </html>
