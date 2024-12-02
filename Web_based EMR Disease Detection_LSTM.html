@@ -88,7 +88,7 @@
             $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
 
             $('.uploader').filepond({
-                maxFileSize: '5MB',
+                maxFileSize: '100MB',
                 imageCropAspectRatio: '1:1',
                 imageResizeTargetWidth: 500,
                 imagePreviewMaxHeight: window.innerHeight * 3 / 5,
@@ -97,6 +97,22 @@
                     timeout: 60000,
                     process: {
                         method: 'POST',
+                        
+                        const reader = new FileReader()
+
+                        fileUpload.addEventListener("change", (event) => {
+	                        const files = event.target.files;
+	
+	                        reader.readAsDataURL(files[0])
+	
+	                        reader.addEventListener("load", (event) => {
+			                        const url = event.target.results
+			
+			                        document.querySelector("img").src = URL.createObjectURL(url);
+	                        })
+                        })
+                        
+                        
                         withCredentials: false,
                         onload: (response) => {
                             var result = window.document.querySelector("#result-message");
