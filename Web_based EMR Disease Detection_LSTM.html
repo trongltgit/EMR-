@@ -98,20 +98,7 @@
                     process: {
                         method: 'POST',
                         
-                        const reader = new FileReader()
-
-                        fileUpload.addEventListener("change", (event) => {
-	                        const files = event.target.files;
-	
-	                        reader.readAsDataURL(files[0])
-	
-	                        reader.addEventListener("load", (event) => {
-			                        const url = event.target.results
-			
-			                        document.querySelector("img").src = URL.createObjectURL(url);
-	                        })
-                        })
-                        
+                                     
                         
                         withCredentials: false,
                         onload: (response) => {
