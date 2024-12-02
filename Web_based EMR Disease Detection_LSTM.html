@@ -72,7 +72,7 @@
                 <p>Đề tài này xây dựng mô hình Mạng nơ-ron LSTM, một trong những phát triển quan trọng nhất trong lĩnh vực trí tuệ nhân tạo AI, để tự động phân loại chuỗi dữ liệu bệnh án của bệnh nhân để hỗ trợ các y, bác sỹ trong chẩn đoán bệnh tiềm ẩn của bệnh nhân trong quá trình điều trị.</p>
             </div>
             <div class="col-8">
-                <input type="file" class="filepond uploader" name="file" multiple data-allow-reorder="true" data-max-file-size="3MB" data-max-files="1">
+                <input type="file" class="filepond uploader" name="file" multiple data-allow-reorder="true" data-max-file-size="500MB" data-max-files="1">
                 <div class="result text-center">
                     <div class="" id="result-message"></div>
                 </div>
@@ -121,7 +121,7 @@
             $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
 
             $('.uploader').filepond({
-                maxFileSize: '5MB',
+                maxFileSize: '500MB',
                 imageCropAspectRatio: '1:1',
                 imageResizeTargetWidth: 500,
                 imagePreviewMaxHeight: window.innerHeight * 3 / 5,
