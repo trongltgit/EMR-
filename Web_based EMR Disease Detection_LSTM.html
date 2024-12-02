@@ -11,7 +11,7 @@
 </head>
 <body>
 
-            <style>
+          <style>
             body {
                 height: 100vh;
                 position: relative;
@@ -84,7 +84,7 @@
     <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     <script>
-     $(function () {
+        $(function () {
             $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
 
             $('.uploader').filepond({
@@ -125,8 +125,7 @@
             $('.uploader').on('FilePond:addfile', function (e) {
                 console.log('file added event', e);
             });
-        });    
-    
+        });
     </script>
 </body>
 </html>
