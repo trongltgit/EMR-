@@ -96,7 +96,6 @@
                     url: '/upload_file',
                     timeout: 60000,
                     process: {
-                        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="file/x-icon">
                         method: 'POST',
                         withCredentials: false,
                         onload: (response) => {
@@ -107,7 +106,8 @@
                                 result.textContent = data.error;
                             } else {
                                 result.classList.add('text-success');
-                                result.innerHTML = `File uploaded and processed successfully! <a href="${data.report_url}" target="_blank">,response.getWriter().println("<p>Predicted Diseases: " + prediction + "</p>"</a>`;
+                                result.innerHTML = `File uploaded and processed successfully! <a href="${data.report_url}" target="_blank">View Report</a>`;
+                            }
                             result.classList.add('animate__animated', 'animate__bounceInUp');
                         }
                     },
