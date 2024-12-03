@@ -125,25 +125,7 @@
                 imageCropAspectRatio: '1:1',
                 imageResizeTargetWidth: 500,
                 imagePreviewMaxHeight: window.innerHeight * 3 / 5,
-
-                
-                fetch('https:// ngrok-free.app/predict', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Prediction:', data);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-
-
-
-
-
-                
+                                           
                 server: {
                     url: '/upload_file',
                     timeout: 60000,
