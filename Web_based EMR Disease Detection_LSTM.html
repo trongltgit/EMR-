@@ -105,6 +105,25 @@
                             if (data.error) {
                                 result.classList.add('text-danger');
                                 result.textContent = data.error;
+
+                                fetch('/upload_file', {
+    method: 'POST',
+    body: formData // Assuming formData contains the uploaded file
+})
+.then(response => response.json())
+.then(data => {
+    if (data.predict_url) {
+        result.innerHTML = `File uploaded and processed successfully! <a href="${data.predict_url}" target="_blank">View Prediction</a>`;
+    } else {
+        result.innerHTML = `Error: ${data.error}`;
+    }
+})
+.catch(error => {
+    result.innerHTML = `Error: ${error}`;
+});
+
+
+                                
                             } else {
                                 result.classList.add('text-success');
                                 result.innerHTML = `File uploaded and processed successfully! <a href="${data.predict_url}" target="_blank">View Prediction</a>`;
