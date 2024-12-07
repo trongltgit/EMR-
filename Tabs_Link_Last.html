@@ -191,14 +191,15 @@
         <div class="tabs">
             <span data-tab-value="#Home">Home</span>
             <span data-tab-value="#EMR">EMR</span>
-            <span data-tab-value="#Dự báo bệnh tiềm ẩn">Dự báo bệnh tiềm ẩn</span>
+            <!--<span data-tab-value="#Dự báo bệnh tiềm ẩn">Dự báo bệnh tiềm ẩn</span>-->
             <span data-tab-value="#Phân tích EMR chuyên sâu">Phân tích EMR chuyên sâu</span>
-            <span data-tab-value="#Liêm hệ">Liên hệ</span>
-            <span data-tab-value="#Về Công ty chúng tôi">Về Công ty chúng tôi</span>
+            <!--<span data-tab-value="#Liêm hệ">Liên hệ</span>-->
+            <!--<span data-tab-value="#Về Công ty chúng tôi">Về Công ty chúng tôi</span>-->
         </div>
 
         <!-- Tab content -->
         <div class="tab-content">
+
             <div class="tabs__tab active" id="Home" data-tab-info>
 
                 <p>Số hóa hồ sơ bệnh án đang là xu hướng phát triển. Việc phân tích đồng bộ hồ sơ bệnh án điện tử EMR là thách thức và là cơ hội đối với các bệnh viện hiện nay.</p>
@@ -207,6 +208,8 @@
 
                 
             </div>
+
+
             <div class="tabs__tab" id="EMR" data-tab-info>
                 <button type="button" onclick="dieu_huong()">Vui lòng chọn file EMR để truy vấn hồ sơ EMR của bạn.</button>
 
@@ -278,21 +281,96 @@
                 
                               
             </div>
-            <div class="tabs__tab" id="Dự báo bệnh tiềm ẩn" data-tab-info>
-                <p>Vui lòng chọn file thông tin xét nghiệm, EMR để dự đoán bệnh tiềm ẩn.</p>
+            <div class="tabs__tab active" id="Dự báo bệnh tiềm ẩn" data-tab-info>
+                <button type="button" onclick="dieu_huong()">Vui lòng chọn file thông tin xét nghiệm, EMR để dự đoán bệnh tiềm ẩn.</button>
 
+                
+                <button onclick="myFunction()">Vui lòng chọn file thông tin xét nghiệm, EMR để dự đoán bệnh tiềm ẩn.</button>
+
+                <p> Vui lòng chọn file thông tin xét nghiệm, EMR để dự đoán bệnh tiềm ẩn. </p>
             </div>
-            <div class="tabs__tab" id="Phân tích EMR chuyên sâu" data-tab-info>
-                <p>Vui lòng chọn file XQ, CT, MRI để phân tích chuyên sâu.</p>
 
+            <div class="tabs__tab active" id="Phân tích EMR chuyên sâu" data-tab-info>
+                          
+
+                <button type="button" onclick="dieu_huong()">Vui lòng chọn file XQ, CT, MTI để phân tích chuyêm sâu EMR của bạn.</button>
+
+                <input type="file" class="filepond uploader" name="file" multiple data-allow-reorder="true" data-max-file-size="590MB" data-max-files="1">
+                <div class="result text-center">
+                    <div class="" id="result-message"></div>
+                </div>
             </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
+    <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script>
+        $(function () {
+            $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
 
-            <div class="tabs__tab" id="Phân tích EMR chuyên sâu" data-tab-info>
-                <p>Vui lòng chọn file XQ, CT, MRI để phân tích chuyên sâu.</p>
+            $('.uploader').filepond({
+                maxFileSize: '5MB',
+                imageCropAspectRatio: '1:1',
+                imageResizeTargetWidth: 500,
+                imagePreviewMaxHeight: window.innerHeight * 3 / 5,
+                server: {
+                    url: '/upload_file',
+                    timeout: 60000,
+                    process: {
+                        method: 'POST',
+                        withCredentials: false,
+                        onload: (response) => {
+                            var result = window.document.querySelector("#result-message");
+                            var data = JSON.parse(response);
+                            if (data.error) {
+                                result.classList.add('text-danger');
+                                result.textContent = data.error;
+                            } else {
+                                result.classList.add('text-success');
+                                result.innerHTML = `File uploaded and processed successfully! <a href="${data.report_url}" target="_blank">View Report</a>`;
+                            }
+                            result.classList.add('animate__animated', 'animate__bounceInUp');
+                        }
+                    },
+                },
+            });
 
-            </div>
+            $('.uploader').filepond('allowMultiple', true);
+
+            $('.uploader').on('FilePond:addfile', function (e) {
+                var result = window.document.querySelector("#result-message");
+                result.classList.remove('animate__animated', 'animate__bounceInUp', 'text-danger', 'text-success');
+                result.textContent = "";
+            });
+
+            $('.uploader').on('FilePond:addfile', function (e) {
+                console.log('file added event', e);
+            });
+        });
+    </script>
+
+
+
+        <script>
+                //function dieu_huong(){
+                //location.assign("https://raw.githubusercontent.com/trongltgit/EMR-/refs/heads/main/Web_based%20EMR%20Detection_Profile.html");
+            }
+        </script>
+
+    </div>  
+
+    </div?
+
+    
+
+
 
             <div class="tabs__tab" id="Liêm hệ" data-tab-info>
+                <p>Công ty TNHH MTV Minh Trí và những người bạn Marie Curie.</p>
+                <p> 159 Nam Kỳ Khởi Nghĩa, Quận 3, Tp. Hồ Chí Minh</p>                
                 <p>Lại Nguyễn Minh Trí - laingminhtri@gmail.com - 0908083566.</p>
 
             </div>
