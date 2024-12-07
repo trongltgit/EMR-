@@ -210,17 +210,68 @@
             <div class="tabs__tab" id="EMR" data-tab-info>
                 <button type="button" onclick="dieu_huong()">Vui lòng chọn file EMR để truy vấn hồ sơ EMR của bạn.</button>
 
-                <div class="vb-content">
-                    
-                    <input type="file" id="file-uploader">
-                    <div id="feedback"></div>
-                  </div>
+                <input type="file" class="filepond uploader" name="file" multiple data-allow-reorder="true" data-max-file-size="3MB" data-max-files="1">
+                <div class="result text-center">
+                    <div class="" id="result-message"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
+    <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script>
+        $(function () {
+            $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
+
+            $('.uploader').filepond({
+                maxFileSize: '5MB',
+                imageCropAspectRatio: '1:1',
+                imageResizeTargetWidth: 500,
+                imagePreviewMaxHeight: window.innerHeight * 3 / 5,
+                server: {
+                    url: '/upload_file',
+                    timeout: 60000,
+                    process: {
+                        method: 'POST',
+                        withCredentials: false,
+                        onload: (response) => {
+                            var result = window.document.querySelector("#result-message");
+                            var data = JSON.parse(response);
+                            if (data.error) {
+                                result.classList.add('text-danger');
+                                result.textContent = data.error;
+                            } else {
+                                result.classList.add('text-success');
+                                result.innerHTML = `File uploaded and processed successfully! <a href="${data.report_url}" target="_blank">View Report</a>`;
+                            }
+                            result.classList.add('animate__animated', 'animate__bounceInUp');
+                        }
+                    },
+                },
+            });
+
+            $('.uploader').filepond('allowMultiple', true);
+
+            $('.uploader').on('FilePond:addfile', function (e) {
+                var result = window.document.querySelector("#result-message");
+                result.classList.remove('animate__animated', 'animate__bounceInUp', 'text-danger', 'text-success');
+                result.textContent = "";
+            });
+
+            $('.uploader').on('FilePond:addfile', function (e) {
+                console.log('file added event', e);
+            });
+        });
+    </script>
 
 
 
                 <script>
-                    //function dieu_huong(){
-                        location.assign("https://raw.githubusercontent.com/trongltgit/EMR-/refs/heads/main/Web_based%20EMR%20Detection_Profile.html");
+                     //function dieu_huong(){
+                        //location.assign("https://raw.githubusercontent.com/trongltgit/EMR-/refs/heads/main/Web_based%20EMR%20Detection_Profile.html");
                     }
                 </script>
 
