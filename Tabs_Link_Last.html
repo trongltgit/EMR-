@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMR-ELECTRONIC MEDICAL RECORD DETECTION PROJECT</title>
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />   
+    
+    <style>
+        body {
+            height: 100vh;
+            position: relative;
+        }
+
+        body {
+            /* position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            content: ''; */
+            
+        }
+
+        h1 {
+            text-align: center;
+            background: #029f9f;
+            display: inline-block;
+            text-align: center;
+            margin: auto;
+            padding: 20px 40px;
+            color: white;
+            margin-bottom: 30px;
+            border-radius: 20px;
+        }
+
+        #main-container {
+            text-align: center;
+            max-width: 90vw;
+            z-index: 1000;
+            opacity: 1;
+            margin: 20px auto;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+        }
+
+        .text-justify {
+            text-align: justify;
+        }
+
+        .result {
+            padding: 0 20px;
+            font-size: 2em;
+        }
+    </style>
+    <div class="container" id="main-container">
+        <h1>EMR-ELECTRONIC MEDICAL RECORD DETECTION PROJECT</h1>
+        <div class="row">
+            <div class="col-4 text-justify">
+
+                <style>
+                    * {box-sizing: border-box}
+                    body {font-family: "Lato", sans-serif;}
+                    
+                    /* Style the tab */
+                    .tab {
+                      float: left;
+                      border: 1px solid #ccc;
+                      background-color: #f1f1f1;
+                      width: 30%;
+                      height: 300px;
+                    }
+                    
+                    /* Style the buttons inside the tab */
+                    .tab button {
+                      display: block;
+                      background-color: inherit;
+                      color: black;
+                      padding: 22px 16px;
+                      width: 100%;
+                      border: none;
+                      outline: none;
+                      text-align: left;
+                      cursor: pointer;
+                      transition: 0.3s;
+                      font-size: 17px;
+                    }
+                    
+                    /* Change background color of buttons on hover */
+                    .tab button:hover {
+                      background-color: #ddd;
+                    }
+                    
+                    /* Create an active/current "tab button" class */
+                    .tab button.active {
+                      background-color: #ccc;
+                    }
+                    
+                    /* Style the tab content */
+                    .tabcontent {
+                      float: left;
+                      padding: 0px 12px;
+                      border: 1px solid #ccc;
+                      width: 70%;
+                      border-left: none;
+                      height: 300px;
+                }
+                </style>
+                    
+                
+                </head>
+                <body>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <title>EMR-ELECTRONIC MEDICAL RECORD DETECTION PROJECT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: white;
+        }
+
+        .container {
+            border: 1px solid grey;
+            margin: 1rem;
+        }
+
+        [data-tab-info] {
+            display: none;
+        }
+
+        .active[data-tab-info] {
+            display: block;
+        }
+
+        .tab-content {
+            margin-top: 1rem;
+            padding-left: 1rem;
+            font-size: 20px;
+            font-family: sans-serif;
+            font-weight: bold;
+            color: rgb(0, 0, 0);
+        }
+
+        .tabs {
+            border-bottom: 1px solid grey;
+            background-color: rgb(16, 153, 9);
+            font-size: 25px;
+            color: rgb(0, 0, 0);
+            display: flex;
+            margin: 0;
+        }
+
+        .tabs span {
+            background: rgb(16, 153, 9);
+            padding: 10px;
+            border: 1px solid rgb(255, 255, 255);
+        }
+
+        .tabs span:hover {
+            background: rgb(55, 219, 46);
+            cursor: pointer;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Body Container -->
+    <div class="container">
+
+        <!-- Tabs Detail -->
+        <div class="tabs">
+            <span data-tab-value="#Home">Home</span>
+            <span data-tab-value="#EMR">EMR</span>
+            <span data-tab-value="#Dự báo bệnh tiềm ẩn">Dự báo bệnh tiềm ẩn</span>
+            <span data-tab-value="#Phân tích EMR chuyên sâu">Phân tích EMR chuyên sâu</span>
+            <span data-tab-value="#Liêm hệ">Liên hệ</span>
+            <span data-tab-value="#Về Công ty chúng tôi">Về Công ty chúng tôi</span>
+        </div>
+
+        <!-- Tab content -->
+        <div class="tab-content">
+            <div class="tabs__tab active" id="Home" data-tab-info>
+
+                <p>Số hóa hồ sơ bệnh án đang là xu hướng phát triển. Việc phân tích đồng bộ hồ sơ bệnh án điện tử EMR là thách thức và là cơ hội đối với các bệnh viện hiện nay.</p>
+                <p>Đây là công cụ hỗ trợ mạnh mẽ không chỉ việc phân tích EMR, mà còn phân tích và dự báo bệnh tiềm ẩn dựa trên phân tích các xét nghiệm máu, hình ảnh y khoa như CT, XQ...</p>
+                <p>Đề tài này xây dựng mô hình Mạng nơ-ron LSTM, một trong những phát triển quan trọng nhất trong lĩnh vực trí tuệ nhân tạo AI, để tự động phân loại chuỗi dữ liệu bệnh án của bệnh nhân để hỗ trợ các y, bác sỹ trong chẩn đoán bệnh tiềm ẩn của bệnh nhân trong quá trình điều trị.</p>
+
+                
+            </div>
+            <div class="tabs__tab" id="EMR" data-tab-info>
+                <button type="button" onclick="dieu_huong()">Vui lòng chọn file EMR để truy vấn hồ sơ EMR của bạn.</button>
+
+                <div class="vb-content">
+                    
+                    <input type="file" id="file-uploader">
+                    <div id="feedback"></div>
+                  </div>
+
+
+
+                <script>
+                    //function dieu_huong(){
+                        location.assign("https://raw.githubusercontent.com/trongltgit/EMR-/refs/heads/main/Web_based%20EMR%20Detection_Profile.html");
+                    }
+                </script>
+
+                
+                              
+            </div>
+            <div class="tabs__tab" id="Dự báo bệnh tiềm ẩn" data-tab-info>
+                <p>Vui lòng chọn file thông tin xét nghiệm, EMR để dự đoán bệnh tiềm ẩn.</p>
+
+            </div>
+            <div class="tabs__tab" id="Phân tích EMR chuyên sâu" data-tab-info>
+                <p>Vui lòng chọn file XQ, CT, MRI để phân tích chuyên sâu.</p>
+
+            </div>
+
+            <div class="tabs__tab" id="Phân tích EMR chuyên sâu" data-tab-info>
+                <p>Vui lòng chọn file XQ, CT, MRI để phân tích chuyên sâu.</p>
+
+            </div>
+
+            <div class="tabs__tab" id="Liêm hệ" data-tab-info>
+                <p>Lại Nguyễn Minh Trí - laingminhtri@gmail.com - 0908083566.</p>
+
+            </div>
+
+            <div class="tabs__tab" id="Về Công ty chúng tôi" data-tab-info>
+                <p>Công ty TNHH MTV Minh Trí và những người bạn Marie Curie.</p>
+                <p> 159 Nam Kỳ Khởi Nghĩa, Quận 3, Tp. Hồ Chí Minh</p>
+
+            </div>
+
+
+        </div>
+
+        
+    </div>
+    <script type="text/javascript">
+
+        // function to get each tab details
+        const tabs = document.querySelectorAll('[data-tab-value]')
+        const tabInfos = document.querySelectorAll('[data-tab-info]')
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = document
+                    .querySelector(tab.dataset.tabValue);
+                tabInfos.forEach(tabInfo => {
+                    tabInfo.classList.remove('active')
+                })
+                target.classList.add('active');
+            })
+        })
+    </script>
+</body>
+
+</html>
