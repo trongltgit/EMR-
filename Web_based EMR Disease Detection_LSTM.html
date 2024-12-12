@@ -106,6 +106,22 @@
                                 result.classList.add('text-danger');
                                 result.textContent = data.error;
 
+                              fetch('https://raw.githubusercontent.com/trongltgit/EMR-/refs/heads/main/Web_based%20EMR%20Disease%20Detection_LSTM.html/predict', {
+    method: 'POST',
+    body: formData
+})
+.then(response => response.json())
+.then(data => {
+    console.log('Prediction:', data);
+})
+.catch(error => {
+    console.error('Error:', error);
+});
+
+                                
+                                
+                                
+                                
                                 fetch('/upload_file', {
     method: 'POST',
     body: formData // Assuming formData contains the uploaded file
